@@ -81,8 +81,16 @@ function makeHtmlBoard() {
  *    (return null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 5
-  return 5;
+  //write the real version of this, rather than always returning 5
+  if(board[0][x] !== null){
+    return null;
+  }
+  for(let i = 0; i < HEIGHT; i++){
+    if (board[i][x] !== null){
+      return i - 1;
+    }
+  }
+  return HEIGHT - 1;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */

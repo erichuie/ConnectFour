@@ -96,7 +96,10 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
+  // Make a div and insert into correct table cell.
+  const newDiv = document.createElement('div');
+  newDiv.classList.add('piece', `p${currPlayer}`);
+  document.getElementById(`c-${y}-${x}`).append(newDiv);
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */

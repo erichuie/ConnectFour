@@ -154,12 +154,9 @@ function checkForWin() {
       let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
       let diagDL = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
       let diagDR = [[y, x], [y - 1, x + 1], [y - 2, x + 2], [y - 3, x + 3]];
+      // TODO: Redo diag's here.
 
       // find winner (only checking each win-possibility as needed)
-      // console.log(_win(horiz));
-      // console.log(_win(vert));
-      // console.log(_win(diagDR));
-      // console.log(_win(diagDL));
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
@@ -187,19 +184,31 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update global `board` variable with new piece
+  // Add line to update global `board` variable with new piece
   placeInTable(y, x);
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
 
-  // check for tie: if top row is filled, board is filled
-  // TODO: check if all cells in board are filled; if so, call endGame
+  // Check for tie: if top row is filled, board is filled
+  // Check if all cells in board are filled; if so, call endGame
 
-  // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  let vacantSpotExists = false;
+  for (let i = 0; i < HEIGHT; i++) {
+    for (let j = 0; j < WIDTH; j++) {
+      if (board[i][j] === null) {
+        vacantSpotExists = true;
+      }
+    }
+  }
+
+  if (!vacantSpotExists) { endGame(); }
+
+  // Switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 /** Start game. */

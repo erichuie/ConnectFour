@@ -28,8 +28,8 @@ function makeBoard() {
     board.push(row);
     row = [];
   }
-  debugger;
-  console.log(board);
+  // debugger;
+  // console.log(board);
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -113,9 +113,26 @@ function checkForWin() {
    */
   function _win(cells) {
 
-    // TODO: Check four cells to see if they're all legal & all color of current
+    // Check four cells to see if they're all legal & all color of current
     // player
+    for(let i = 0; i < cells.length; i++){
 
+      // debugger;
+
+      if(cells[i][0] >= HEIGHT || cells[i][0] < 0){
+        return false;
+      }
+      if(cells[i][1] >= WIDTH || cells[i][0] < 0){
+        return false;
+      }
+      let currTableCell = document.getElementById(`c-${cells[i][0]}-${cells[i][1]}`);
+      if(currTableCell.firstElementChild !== null){
+        if(currTableCell.firstElementChild.classList.contains(`p${currPlayer}`) !== true){
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
@@ -129,11 +146,15 @@ function checkForWin() {
       // [ [y, x], [y, x], [y, x], [y, x] ]
 
       let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      let vert;
-      let diagDL;
-      let diagDR;
+      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+      let diagDL = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+      let diagDR = [[y, x], [y - 1, x + 1], [y - 2, x + 2], [y - 3, x + 3]];
 
       // find winner (only checking each win-possibility as needed)
+      console.log(_win(horiz));
+      console.log(_win(vert));
+      console.log(_win(diagDR));
+      console.log(_win(diagDL));
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }

@@ -115,22 +115,27 @@ function checkForWin() {
 
     // Check four cells to see if they're all legal & all color of current
     // player
-    for(let i = 0; i < cells.length; i++){
+    // for(let i = 0; i < cells.length; i++){
+    for(const[y,x] of cells){
 
       // debugger;
 
-      if(cells[i][0] >= HEIGHT || cells[i][0] < 0){
+      if(y >= HEIGHT || y < 0){
         return false;
       }
-      if(cells[i][1] >= WIDTH || cells[i][0] < 0){
+      if(x >= WIDTH || x < 0){
         return false;
       }
-      let currTableCell = document.getElementById(`c-${cells[i][0]}-${cells[i][1]}`);
-      if(currTableCell.firstElementChild !== null){
-        if(currTableCell.firstElementChild.classList.contains(`p${currPlayer}`) !== true){
-          return false;
-        }
+      if(board[y][x] !== currPlayer){
+        return false;
       }
+      // let currTableCell = document.getElementById(`c-${cells[i][0]}-${cells[i][1]}`);
+      // console.log(currTableCell.firstChild);
+      // if(currTableCell.firstElementChild !== null){
+      //   if(currTableCell.firstElementChild.classList.contains(`p${currPlayer}`) !== true){
+      //     return false;
+      //   }
+      // }
     }
     return true;
   }
@@ -151,10 +156,10 @@ function checkForWin() {
       let diagDR = [[y, x], [y - 1, x + 1], [y - 2, x + 2], [y - 3, x + 3]];
 
       // find winner (only checking each win-possibility as needed)
-      console.log(_win(horiz));
-      console.log(_win(vert));
-      console.log(_win(diagDR));
-      console.log(_win(diagDL));
+      // console.log(_win(horiz));
+      // console.log(_win(vert));
+      // console.log(_win(diagDR));
+      // console.log(_win(diagDL));
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
